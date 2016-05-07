@@ -1,35 +1,32 @@
 let points = [];
 
 let noOfPointsSlider;
-let noOfPointsMapped;
-
 let noOfConnectionsSlider;
-let noOfConnections;
 
 function setup() {
-	let canvas = createCanvas(windowWidth-20, windowHeight-20);
+	let canvas = createCanvas(800, 500);
 	canvas.parent("canvas");
 	smooth();
 	frameRate(30);
 
-	noOfPointsSlider = createSlider("noOfPoints");
-	noOfPointsSlider.position(20, 20);
-	noOfPointsSlider.value(30);
+	noOfPointsSlider = createSlider(4, 20, 4);
+	noOfPointsSlider.parent("controls");
 
-	noOfConnectionsSlider = createSlider("noOfConnections");
-	noOfConnectionsSlider.value(30);
-	noOfConnectionsSlider.position(20, 60);
+	noOfConnectionsSlider = createSlider(1, 10, 4);
+	noOfConnectionsSlider.parent("controls");
 }
 
 function draw() {
 	background(43, 58, 66);
+	stroke(0, 0, 20);
+	strokeWeight(10);
+	noFill();
+	rect(0, 0, width, height);
 
-	noOfConnections = map(noOfConnectionsSlider.value(), 0, 100, 1, 10);
-	noOfPointsMapped = map(noOfPointsSlider.value(), 0, 100, 4, 20);
-	while(noOfPointsMapped > points.length) {
-		points.push(new Point(random(20, width-20), random(20, height-20)));
+	while(noOfPointsSlider.value() > points.length) {
+		points.push(new Point(random(20, width), random(20, height)));
 	}
-	while(noOfPointsMapped < points.length) {
+	while(noOfPointsSlider.value() < points.length) {
 		points.pop();
 	}
 
@@ -40,21 +37,15 @@ function draw() {
 
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth-20, windowHeight-20);
-}
-
 function Point(x, y) {
-	this.r = 3;
+	this.r = 5;
 	this.loc = createVector(x, y);
 	this.vel = createVector(random(-0.5, 0.5), random(-0.2, 0.2));
 	
-
-	// Draws lines to two closest points
 	this.drawLines = function(allPoints) {
 		stroke(189,212,222);
 		strokeWeight(1);
-		for (let i = 0; i < noOfConnections; i++) {
+		for (let i = 0; i < noOfConnectionsSlider.value(); i++) {
 			if(i < allPoints.length) {
 				line(this.loc.x, this.loc.y, allPoints[i].loc.x, allPoints[i].loc.y);
 			}
