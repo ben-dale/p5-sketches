@@ -3,15 +3,32 @@
 	<head>
 	  <meta charset="UTF-8">
 	  <title>Points and Lines</title>
+	  <link href='https://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'/>
 	</head>
 	<style>
 		body {
-			padding:20;
-			background: #2B3A42;
+			text-align:center;
+			font-family: 'Fira Sans', sans-serif;
+		}
+
+		h3 {
+			padding: 20px 0;
+		}
+
+		p {
+			font-size:12px;
+		}
+
+		#controls {
+			margin-bottom: 20px;
 		}
 	</style>
 	<body>
+		<h3>Points and Lines</h3>
+		<div id="controls"></div>
 		<div id="canvas"></div>
+		<p>Move the sliders to change the number of points and lines.</p>
+		<p><a href="https://github.com/ben-dale/p5-sketches/tree/master/sketches/points_and_lines">view source code</a></p>
 		<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.0/p5.min.js"></script>
 		<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.0/addons/p5.dom.min.js"></script>
   		<script language="javascript" type="text/javascript" src="sketch.js"></script>
