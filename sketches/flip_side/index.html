@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Flip-Side</title>
+	  <link href='https://fonts.googleapis.com/css?family=Fira+Sans' rel='stylesheet' type='text/css'/>
+	</head>
+	<style>
+		body {
+			text-align:center;
+			font-family: 'Fira Sans', sans-serif;
+		}
+
+		h3 {
+			padding: 20px 0;
+		}
+
+		p {
+			font-size:12px;
+		}
+	</style>
+	<body>
+		<h3>Flip-Side</h3>
+		<div id="canvas"></div>
+		
+		<h4>Instructions</h4>
+		<p>
+			The aim of this puzzle is to line up the squares in order from 0-9.
+			<br/>
+			The top row must contain the numbers 0-4 and the bottom row must contain the numbers 5-9, all in ascending order.
+		</p>
+		<p>
+			Use the up and down arrow keys to switch between the rows and the left and right arrow keys to shift the rows left and right.
+			<br/>
+			Use the spacebar to "flip" the middle six squares.
+		</p>
+		<p>
+			To scramble the squares, hit the "s" key.
+		</p>
+		<p><i>Based on the original puzzle Flip-Side by <a href="http://www.thinkfun.com/">ThinkFun</a>.</i></p>
+		<p><a href="https://github.com/ben-dale/p5-sketches/tree/master/sketches/flip_side">view source code</a></p>
+		
+		<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.0/p5.min.js"></script>
+		<script language="javascript" type="text/javascript" src="sketch.js"></script>
+		<script language="javascript" type="text/javascript" src="board.js"></script>
+		<script language="javascript" type="text/javascript" src="piece.js"></script>
+	</body>
+</html>
