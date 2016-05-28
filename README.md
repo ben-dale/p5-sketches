@@ -10,3 +10,4 @@ A repository of sketches made with [p5.js](http://p5js.org/)
 
 #### Misc
 1. [Points & Lines](http://ben-dale.github.io/p5-sketches/sketches/points_and_lines)
+1. [Points & Lines II](http://ben-dale.github.io/p5-sketches/sketches/points_and_lines_ii)
