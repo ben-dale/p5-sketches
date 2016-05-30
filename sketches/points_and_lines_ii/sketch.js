@@ -1,8 +1,8 @@
-let points = [];
-let paused = false;
+var points = [];
+var paused = false;
 
 function setup() {
-	let canvas = createCanvas(800, 500);
+	var canvas = createCanvas(800, 500);
 	canvas.parent("canvas");
 	canvas.mouseClicked(function() { points.push(new Point(mouseX, mouseY)); });
 	smooth();
@@ -12,11 +12,11 @@ function setup() {
 function draw() {
 	background(52, 73, 94);
 
-	for (let i = 0; i < points.length; i++) {
-		let current = points[i];
-		for (let j = 0; j < points.length; j++) {
+	for (var i = 0; i < points.length; i++) {
+		var current = points[i];
+		for (var j = 0; j < points.length; j++) {
 			if (current !== points[j]) {
-				let distance = distanceBetween(current, points[j]);
+				var distance = distanceBetween(current, points[j]);
 				if (distance <= 180) {
 					drawConnection(current, points[j], distance);
 				}
@@ -24,7 +24,7 @@ function draw() {
 		}
 	}
 	
-	for (let i = 0; i < points.length; i++) {
+	for (var i = 0; i < points.length; i++) {
 		if (!paused) { points[i].update(); }
 		points[i].draw();
 	}
@@ -44,7 +44,7 @@ function keyPressed() {
 }
 
 function initPoints() {
-	for (let i = 0; i < 20; i++) {
+	for (var i = 0; i < 20; i++) {
 		points.push(new Point(floor(random(width)), floor(random(height))));
 	}
 }

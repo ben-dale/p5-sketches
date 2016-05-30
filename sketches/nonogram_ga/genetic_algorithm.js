@@ -17,8 +17,8 @@ function GeneticAlgorithm(poolSize) {
 		this.rowRules = rowRules;
 		this.columnRules = columnRules;
 
-		for (let i = 0; i < poolSize; i++) {
-			let solution = new NonogramSolution();
+		for (var i = 0; i < poolSize; i++) {
+			var solution = new NonogramSolution();
 			solution.init(rows, columns);
 			this.solutions.push(solution);
 		}
@@ -28,7 +28,7 @@ function GeneticAlgorithm(poolSize) {
 	// Called when the GA is stuck. This may help the GA get unstuck by mass 
 	// mutating all solutions apart from the fittest 
 	this.performMassMutation = function() {
-		for (let i = 0; i < this.solutions.length; i++) {
+		for (var i = 0; i < this.solutions.length; i++) {
 			if (this.getBestSolution() !== this.solutions[i]) {
 				this.solutions[i].grid.shuffle();
 			}
@@ -37,9 +37,9 @@ function GeneticAlgorithm(poolSize) {
 
 	// Called when the GA seriously stuck
 	this.reset = function() {
-		let newSolutions = [];
-		for (let i = 0; i < poolSize; i++) {
-			let solution = new NonogramSolution();
+		var newSolutions = [];
+		for (var i = 0; i < poolSize; i++) {
+			var solution = new NonogramSolution();
 			solution.init(this.rows, this.columns);
 			newSolutions.push(solution);
 		}
@@ -48,8 +48,8 @@ function GeneticAlgorithm(poolSize) {
 	};
 
 	this.converged = function() {
-		let fitness = this.solutions[0].fitness;
-		for (let i = 0; i < this.solutions.length; i++) {
+		var fitness = this.solutions[0].fitness;
+		for (var i = 0; i < this.solutions.length; i++) {
 			if (this.solutions[i].fitness !== fitness) {
 				return false;
 			}
@@ -59,14 +59,14 @@ function GeneticAlgorithm(poolSize) {
 
 	this.evolve = function() {
 		// Copy over best solution
-		let newSolutions = [];
-		for(let i = 0; i < this.solutions.length; i++) {
+		var newSolutions = [];
+		for(var i = 0; i < this.solutions.length; i++) {
 			if (i === 0) {
 				newSolutions.push(this.getBestSolution());
 			} else {
-				let parentA = this.tourSelect();
-				let parentB = this.tourSelect();
-				let child = this.crossover(parentA, parentB);child.mutate();
+				var parentA = this.tourSelect();
+				var parentB = this.tourSelect();
+				var child = this.crossover(parentA, parentB);child.mutate();
 				newSolutions.push(child);
 			}
 		}
@@ -77,17 +77,17 @@ function GeneticAlgorithm(poolSize) {
 	};
 
 	this.tourSelect = function() {
-		let tournament = shuffle(this.solutions).slice(0, 5);
-		let sorted = this.solutions.sort(function(a, b) { return a.fitness - b.fitness });
+		var tournament = shuffle(this.solutions).slice(0, 5);
+		var sorted = this.solutions.sort(function(a, b) { return a.fitness - b.fitness });
 		return sorted[0];
 	};
 
 	this.crossover = function(parentA, parentB) {
-		let grid = [];
-		let gridA = parentA.grid.clone();
-		let gridB = parentB.grid.clone();
+		var grid = [];
+		var gridA = parentA.grid.clone();
+		var gridB = parentB.grid.clone();
 		
-		for (let i = 0; i < gridA.grid.length; i++) {
+		for (var i = 0; i < gridA.grid.length; i++) {
 			if (random(1) <= 0.5) {
 				grid.push(gridA.grid[i]);
 			} else {
@@ -95,20 +95,20 @@ function GeneticAlgorithm(poolSize) {
 			}
 		}
 
-		let newGrid = new Grid(gridA.rows, gridB.columns);
+		var newGrid = new Grid(gridA.rows, gridB.columns);
 		newGrid.grid = grid;
 
 		return new NonogramSolution(newGrid);
 	};
 
 	this.calculateFitnessScores = function() {
-		for (let i = 0; i < this.solutions.length; i++) {
+		for (var i = 0; i < this.solutions.length; i++) {
 			this.solutions[i].calculateFitness(this.rowRules, this.columnRules);
 		}
 	};
 
 	this.getBestSolution = function() {
-		let solutionsSortedOnFitness = this.solutions.sort(function(a, b) { return a.fitness - b.fitness });
+		var solutionsSortedOnFitness = this.solutions.sort(function(a, b) { return a.fitness - b.fitness });
 		return solutionsSortedOnFitness[0];
 	};
 }

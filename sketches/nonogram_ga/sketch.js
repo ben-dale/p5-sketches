@@ -1,18 +1,18 @@
-let goalGrid;
-let geneticAlgorithm;
+var goalGrid;
+var geneticAlgorithm;
 
-let fitnessNotChangedCount;
-let now;
-let then;
-let finished;
-let bestSolution;
-let solved;
-let lastTimeFitnessChanged;
-let timesReset;
-let massMutationCount;
+var fitnessNotChangedCount;
+var now;
+var then;
+var finished;
+var bestSolution;
+var solved;
+var lastTimeFitnessChanged;
+var timesReset;
+var massMutationCount;
 
 function setup() {
-	let canvas = createCanvas(600,600);
+	var canvas = createCanvas(600,600);
 	canvas.parent("canvas");
 	smooth();
 
@@ -93,8 +93,8 @@ function draw() {
 		}
 	}
 
-	let gridx = ((((this.width/goalGrid.squareSize) - goalGrid.columns)/2) * goalGrid.squareSize);
-	let gridy = 170;
+	var gridx = ((((this.width/goalGrid.squareSize) - goalGrid.columns)/2) * goalGrid.squareSize);
+	var gridy = 170;
 
 	goalGrid.drawRules(gridx, gridy);
 	bestSolution.draw(gridx + 25, gridy - 25);

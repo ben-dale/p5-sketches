@@ -1,10 +1,10 @@
-let points = [];
+var points = [];
 
-let noOfPointsSlider;
-let noOfConnectionsSlider;
+var noOfPointsSlider;
+var noOfConnectionsSlider;
 
 function setup() {
-	let canvas = createCanvas(800, 500);
+	var canvas = createCanvas(800, 500);
 	canvas.parent("canvas");
 	smooth();
 	frameRate(30);
@@ -30,7 +30,7 @@ function draw() {
 		points.pop();
 	}
 
-	for (let i = 0; i < points.length; i++) {
+	for (var i = 0; i < points.length; i++) {
 		points[i].move();
 		points[i].drawLines(points);
 	}
@@ -45,7 +45,7 @@ function Point(x, y) {
 	this.drawLines = function(allPoints) {
 		stroke(189,212,222);
 		strokeWeight(1);
-		for (let i = 0; i < noOfConnectionsSlider.value(); i++) {
+		for (var i = 0; i < noOfConnectionsSlider.value(); i++) {
 			if(i < allPoints.length) {
 				line(this.loc.x, this.loc.y, allPoints[i].loc.x, allPoints[i].loc.y);
 			}
