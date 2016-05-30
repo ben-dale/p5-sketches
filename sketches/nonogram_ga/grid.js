@@ -6,7 +6,7 @@ function Grid(rows, columns) {
 	this.squareSize = 40;
 
 	this.init = function() {
-		for(let i = 0; i < this.rows * this.columns; i++) {
+		for(var i = 0; i < this.rows * this.columns; i++) {
 			if (random(1) <= 0.6) {
 				this.grid.push(1);
 			} else {
@@ -21,18 +21,18 @@ function Grid(rows, columns) {
 	};
 
 	this.drawRules = function(x, y) {
-		let currentX = x - this.squareSize / 3;
-		let currentY = y - this.squareSize / 10;
+		var currentX = x - this.squareSize / 3;
+		var currentY = y - this.squareSize / 10;
 		
 		noStroke();
 		fill(0);
 		textSize(this.squareSize/2.5);
 
 		// Draw row rules along the side
-		for (let i = 0; i < this.rows; i++) {
-			let rules = this.getRowRules(i);
+		for (var i = 0; i < this.rows; i++) {
+			var rules = this.getRowRules(i);
 
-			for (let j = rules.length - 1; j >= 0; j--) {
+			for (var j = rules.length - 1; j >= 0; j--) {
 				text(rules[j], currentX, currentY);
 				currentX -= this.squareSize / 2;
 			}
@@ -44,10 +44,10 @@ function Grid(rows, columns) {
 		// Draw column rules along the top
 		currentX = x + this.squareSize - 4;
 		currentY = y - this.squareSize * 1.2;
-		for (let i = 0; i < this.columns; i++) {
-			let rules = this.getColumnRules(i);
+		for (var i = 0; i < this.columns; i++) {
+			var rules = this.getColumnRules(i);
 
-			for (let j = rules.length - 1; j >= 0; j--) {
+			for (var j = rules.length - 1; j >= 0; j--) {
 				text(rules[j], currentX, currentY);
 				currentY -= this.squareSize/1.5;
 			}
@@ -58,11 +58,11 @@ function Grid(rows, columns) {
 	};
 
 	this.draw = function(x, y) {
-		let currentX = x;
-		let currentY = y;
-		let padding = 10;
+		var currentX = x;
+		var currentY = y;
+		var padding = 10;
 
-		for(let i = 0; i < this.grid.length; i++) {
+		for(var i = 0; i < this.grid.length; i++) {
 			if (i != 0 && i % this.columns === 0) {
 				currentY += this.squareSize;
 				currentX = x;
@@ -96,8 +96,8 @@ function Grid(rows, columns) {
 	};
 
 	this.getColumn = function(index) {
-		let buffer = [];
-		for(let i = 0; i < this.rows; i++) {
+		var buffer = [];
+		for(var i = 0; i < this.rows; i++) {
 			buffer.push(this.getRow(i)[index])
 		}
 		return buffer;
@@ -112,25 +112,25 @@ function Grid(rows, columns) {
 	};
 
 	this.getAllRowRules = function() {
-		let buffer = [];
-		for (let i = 0; i < this.rows; i++) {
+		var buffer = [];
+		for (var i = 0; i < this.rows; i++) {
 			buffer.push(this.getRowRules(i));
 		}
 		return buffer;
 	};
 
 	this.getAllColumnRules = function() {
-		let buffer = [];
-		for (let i = 0; i < this.columns; i++) {
+		var buffer = [];
+		for (var i = 0; i < this.columns; i++) {
 			buffer.push(this.getColumnRules(i));
 		}
 		return buffer;
 	};
 
 	this.getRules = function(columnOrRow) {
-		let rules = [];
-		let count = 0;
-		for(let i = 0; i < columnOrRow.length; i++) {
+		var rules = [];
+		var count = 0;
+		for(var i = 0; i < columnOrRow.length; i++) {
 			if (columnOrRow[i] === 1) {
 				count++;
 			} else {
@@ -145,8 +145,8 @@ function Grid(rows, columns) {
 	};
 
 	this.removeZeroValuesFrom = function(array) {
-		let buffer = [];
-		for (let i = 0; i < array.length; i++) {
+		var buffer = [];
+		for (var i = 0; i < array.length; i++) {
 			if (array[i] !== 0) {
 				buffer.push(array[i]);
 			}
@@ -155,13 +155,13 @@ function Grid(rows, columns) {
 	};
 
 	this.clone = function() {
-		let g = new Grid(this.rows, this.columns);
+		var g = new Grid(this.rows, this.columns);
 		g.grid = this.grid.slice(0);
 		return g;
 	};
 
 	this.mutate = function() {
-		for (let i = 0; i < this.grid.length; i++) {
+		for (var i = 0; i < this.grid.length; i++) {
 			if (random(1) <= 0.2) {
 				this.grid[i] = floor(random(2));
 			}

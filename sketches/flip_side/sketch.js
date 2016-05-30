@@ -1,7 +1,7 @@
-let board;
+var board;
 
 function setup() {
-	let canvas = createCanvas(780, 250);
+	var canvas = createCanvas(780, 250);
 	canvas.parent("canvas");
 	smooth();
 
