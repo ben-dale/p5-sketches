@@ -1,110 +1,113 @@
 function GA(points) {
 
-	this.generation = 0;
-	this.solutions = []
+  this.generation = 0;
+  this.solutions = [];
 
-	this.init = function() {
-		for(var i = 0; i < 40; i++) {
-			this.solutions.push(new Solution(shuffle(points.slice(0))));
-		}
-		this.calculateFitnessScores();
-	};
+  this.init = function () {
+    for (var i = 0; i < 40; i++) {
+      this.solutions.push(new Solution(shuffle(points.slice(0))));
+    }
 
-	this.evolve = function() {
-		var newSolutions = [];
-		for(var i = 0; i < this.solutions.length; i++) {
-			if(i == 0) {
-				newSolutions.push(this.getBestSolution());
-			} else {
-				var parentA = this.rouletteWheelSelection();
-				var parentB = this.rouletteWheelSelection();
-				var child = this.crossover(parentA, parentB);
-				if(!containsDuplicates(child.points)) {
-					child.mutate();
-					newSolutions.push(child);
-				} else {
-					// Try again, the child has duplicates
-					i--;
-				}
-			}
-		}
+    this.calculateFitnessScores();
+  };
 
-		this.solutions = shuffle(newSolutions.slice(0));
-		this.calculateFitnessScores();
-		this.generation++;
-	};
+  this.evolve = function () {
+    var newSolutions = [];
+    for (var i = 0; i < this.solutions.length; i++) {
+      if (i == 0) {
+        newSolutions.push(this.getBestSolution());
+      } else {
+        var parentA = this.rouletteWheelSelection();
+        var parentB = this.rouletteWheelSelection();
+        var child = this.crossover(parentA, parentB);
+        if (!containsDuplicates(child.points)) {
+          child.mutate();
+          newSolutions.push(child);
+        } else {
+          // Try again, the child has duplicates
+          i--;
+        }
+      }
+    }
 
-	this.rouletteWheelSelection = function() {
-		var totalFitnessScore = 0;
-		for(var i = 0; i < this.solutions.length; i++) {
-			totalFitnessScore += this.solutions[i].fitness;
-		}
+    this.solutions = shuffle(newSolutions.slice(0));
+    this.calculateFitnessScores();
+    this.generation++;
+  };
 
-		var scoresAsWheelDivisions = [];
-		var totalScore = 0;
-		for(var i = 0; i < this.solutions.length; i++) {
-			var score = floor(totalFitnessScore / this.solutions[i].fitness);
-			scoresAsWheelDivisions.push(score);
-			totalScore += score;
-		}
+  this.rouletteWheelSelection = function () {
+    var totalFitnessScore = 0;
+    for (var i = 0; i < this.solutions.length; i++) {
+      totalFitnessScore += this.solutions[i].fitness;
+    }
 
-		var randomOffset = floor(random(0, totalScore));
-		var scoreCounter = 0;
-		for(var i = 0; i < scoresAsWheelDivisions.length; i++) {
-			scoreCounter += scoresAsWheelDivisions[i];
-			if(scoreCounter >= randomOffset) {
-				return this.solutions[i];
-			}
-		}
-	};
+    var scoresAsWheelDivisions = [];
+    var totalScore = 0;
+    for (var i = 0; i < this.solutions.length; i++) {
+      var score = floor(totalFitnessScore / this.solutions[i].fitness);
+      scoresAsWheelDivisions.push(score);
+      totalScore += score;
+    }
 
-	this.crossover = function(a, b) {
-		var childsPoints = [];
-		var parentAPoints = a.points;
-		var parentBPoints = b.points;
+    var randomOffset = floor(random(0, totalScore));
+    var scoreCounter = 0;
+    for (var i = 0; i < scoresAsWheelDivisions.length; i++) {
+      scoreCounter += scoresAsWheelDivisions[i];
+      if (scoreCounter >= randomOffset) {
+        return this.solutions[i];
+      }
+    }
+  };
 
-		var current = (floor(random(2)) == 0) ? parentAPoints : parentBPoints;
-		var buffer;
-		for(var i = 0; i < parentAPoints.length; i++) {
-			if (i == 0) {
-				childsPoints.push(current[0]);
-				buffer = current[0];
-			} else {
-				var adjElements = getAdjacentElements(current, current.indexOf(buffer));
-				var elementToPushIndex = floor(random(2));
-				var otherElementIndex = (elementToPushIndex == 0) ? 1 : 0;
+  this.crossover = function (a, b) {
+    var childsPoints = [];
+    var parentAPoints = a.points;
+    var parentBPoints = b.points;
 
-				var elementToPush = adjElements[elementToPushIndex];
-				var alreadyIn = childsPoints.indexOf(elementToPush);
+    var current = (floor(random(2)) == 0) ? parentAPoints : parentBPoints;
+    var buffer;
+    for (var i = 0; i < parentAPoints.length; i++) {
+      if (i == 0) {
+        childsPoints.push(current[0]);
+        buffer = current[0];
+      } else {
+        var adjElements = getAdjacentElements(current, current.indexOf(buffer));
+        var elementToPushIndex = floor(random(2));
+        var otherElementIndex = (elementToPushIndex == 0) ? 1 : 0;
 
-				if (alreadyIn > 0) elementToPush = adjElements[otherElementIndex];
+        var elementToPush = adjElements[elementToPushIndex];
+        var alreadyIn = childsPoints.indexOf(elementToPush);
 
-				childsPoints.push(elementToPush);
-				buffer = elementToPush;
-			}
+        if (alreadyIn > 0) elementToPush = adjElements[otherElementIndex];
 
-			current = (current == parentAPoints) ? parentBPoints : parentAPoints;
-		}
+        childsPoints.push(elementToPush);
+        buffer = elementToPush;
+      }
 
-		return new Solution(childsPoints);
-	};
+      current = (current == parentAPoints) ? parentBPoints : parentAPoints;
+    }
 
-	this.calculateFitnessScores = function() {
-		for(var i = 0; i < this.solutions.length; i++) {
-			this.solutions[i].calculateFitness();
-		}
-	};
+    return new Solution(childsPoints);
+  };
 
-	this.drawBestSolution = function() {
-		this.getBestSolution().drawSolution();
-	};
+  this.calculateFitnessScores = function () {
+    for (var i = 0; i < this.solutions.length; i++) {
+      this.solutions[i].calculateFitness();
+    }
+  };
 
-	this.drawFinishedSolution = function() {
-		this.getBestSolution().drawFinishedSolution();
-	}
+  this.drawBestSolution = function () {
+    this.getBestSolution().drawSolution();
+  };
 
-	this.getBestSolution = function() {
-		var solutionsSortedOnFitness = this.solutions.sort(function(a, b) { return a.fitness - b.fitness });
-		return solutionsSortedOnFitness[0];
-	};
+  this.drawFinishedSolution = function () {
+    this.getBestSolution().drawFinishedSolution();
+  };
+
+  this.getBestSolution = function () {
+    var solutionsSortedOnFitness = this.solutions.sort(
+      function (a, b) { return a.fitness - b.fitness; }
+    );
+    return solutionsSortedOnFitness[0];
+  };
 }
