@@ -7,6 +7,7 @@ A repository of sketches made with [p5.js](https://p5js.org/)
 
 #### Games & Puzzles
 1. [Flip-Side](https://ben-dale.github.io/p5-sketches/sketches/flip_side)
+2. [Bit-Shift](https://ben-dale.github.io/p5-sketches/sketches/bit_shift)
 
 #### Misc
 1. [Points & Lines](https://ben-dale.github.io/p5-sketches/sketches/points_and_lines)
