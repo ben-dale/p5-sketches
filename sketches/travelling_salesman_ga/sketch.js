@@ -20,7 +20,7 @@ function setup() {
 function draw() {
   drawBackground();
 
-  if (fitnessNotChangedCount <= 400) {
+  if (fitnessNotChangedCount <= 200) {
     geneticAlg.evolve();
     if (currentBestFitness == geneticAlg.getBestSolution().fitness) {
       fitnessNotChangedCount++;
